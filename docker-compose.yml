@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: pg_client_processing
+    environment:
+      POSTGRES_USER: client
+      POSTGRES_PASSWORD: clientpass
+      POSTGRES_DB: clientdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
