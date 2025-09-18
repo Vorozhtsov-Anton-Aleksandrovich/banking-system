@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="v2-data-accounts-bankx" author="bankx">
+        <insert tableName="accounts" schemaName="public">
+            <column name="id" valueNumeric="1"/>
+            <column name="client_id" value="770100000001"/>
+            <column name="product_id" value="DC1001"/>
+            <column name="balance" valueNumeric="1000.00"/>
+            <column name="interest_rate" valueNumeric="1.50"/>
+            <column name="is_recalc" valueBoolean="true"/>
+            <column name="card_exist" valueBoolean="true"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+
+        <insert tableName="accounts" schemaName="public">
+            <column name="id" valueNumeric="2"/>
+            <column name="client_id" value="770200000023"/>
+            <column name="product_id" value="CC1002"/>
+            <column name="balance" valueNumeric="250.50"/>
+            <column name="interest_rate" valueNumeric="0.00"/>
+            <column name="is_recalc" valueBoolean="false"/>
+            <column name="card_exist" valueBoolean="false"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+
+        <insert tableName="accounts" schemaName="public">
+            <column name="id" valueNumeric="3"/>
+            <column name="client_id" value="770100000002"/>
+            <column name="product_id" value="NS1003"/>
+            <column name="balance" valueNumeric="5000.00"/>
+            <column name="interest_rate" valueNumeric="2.00"/>
+            <column name="is_recalc" valueBoolean="true"/>
+            <column name="card_exist" valueBoolean="false"/>
+            <column name="status" value="BLOCKED"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="v2-data-cards-bankx" author="bankx">
+        <insert tableName="cards" schemaName="public">
+            <column name="id" valueNumeric="1"/>
+            <column name="account_id" valueNumeric="1"/>
+            <column name="card_id" value="4000000000000001"/>
+            <column name="payment_system" value="VISA"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="expire_date" value="2027-08-31"/>
+        </insert>
+        <insert tableName="cards" schemaName="public">
+            <column name="id" valueNumeric="2"/>
+            <column name="account_id" valueNumeric="1"/>
+            <column name="card_id" value="4000000000000002"/>
+            <column name="payment_system" value="MASTERCARD"/>
+            <column name="status" value="BLOCKED"/>
+            <column name="expire_date" value="2024-12-31"/>
+        </insert>
+        <insert tableName="cards" schemaName="public">
+            <column name="id" valueNumeric="3"/>
+            <column name="account_id" valueNumeric="2"/>
+            <column name="card_id" value="4000000000000003"/>
+            <column name="payment_system" value="MIR"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="expire_date" value="2026-05-31"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="v2-data-payments-transactions-bankx" author="bankx">
+        <insert tableName="payments" schemaName="public">
+            <column name="id" valueNumeric="1"/>
+            <column name="account_id" valueNumeric="1"/>
+            <column name="payment_date" value="2025-09-10 09:00:00"/>
+            <column name="amount" valueNumeric="150.00"/>
+            <column name="is_credit" valueBoolean="false"/>
+            <column name="payed_at" value="2025-09-10 09:00:00"/>
+            <column name="type" value="INTERNAL"/>
+        </insert>
+
+        <insert tableName="payments" schemaName="public">
+            <column name="id" valueNumeric="3"/>
+            <column name="account_id" valueNumeric="1"/>
+            <column name="payment_date" value="2025-09-15 12:00:00"/>
+            <column name="amount" valueNumeric="50.00"/>
+            <column name="is_credit" valueBoolean="false"/>
+            <column name="payed_at" value="2025-09-15 12:00:00"/>
+            <column name="type" value="TRANSFER"/>
+        </insert>
+
+        <insert tableName="transactions" schemaName="public">
+            <column name="id" valueNumeric="1"/>
+            <column name="account_id" valueNumeric="1"/>
+            <column name="card_id" valueNumeric="1"/>
+            <column name="type" value="PAYMENT"/>
+            <column name="amount" valueNumeric="150.00"/>
+            <column name="status" value="COMPLETE"/>
+            <column name="timestamp" value="2025-09-10 09:00:01"/>
+        </insert>
+
+        <insert tableName="transactions" schemaName="public">
+            <column name="id" valueNumeric="2"/>
+            <column name="account_id" valueNumeric="1"/>
+            <column name="card_id" valueNumeric="2"/>
+            <column name="type" value="PAYMENT"/>
+            <column name="amount" valueNumeric="20.00"/>
+            <column name="status" value="BLOCKED"/>
+            <column name="timestamp" value="2025-09-11 10:00:00"/>
+        </insert>
+
+        <insert tableName="transactions" schemaName="public">
+            <column name="id" valueNumeric="3"/>
+            <column name="account_id" valueNumeric="2"/>
+            <column name="card_id" valueNumeric="3"/>
+            <column name="type" value="REFUND"/>
+            <column name="amount" valueNumeric="200.00"/>
+            <column name="status" value="PROCESSING"/>
+            <column name="timestamp" value="2025-08-20 14:31:00"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -19,7 +19,10 @@ public class ClientProduct {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(name = "open_date")
     private LocalDate openDate;
+
+    @Column(name = "close_date")
     private LocalDate closeDate;
 
     @Enumerated(EnumType.STRING)

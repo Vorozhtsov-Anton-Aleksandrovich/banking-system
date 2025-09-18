@@ -16,6 +16,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductKey key;
 
+    @Column(name = "create_date")
     private LocalDateTime createDate;
 
     @Column(name = "product_id")
