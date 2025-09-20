@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- 1. Таблица users -->
+    <changeSet id="1" author="init">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="VARCHAR(50)"/>
+            <column name="password" type="VARCHAR(100)"/>
+            <column name="email" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 2. Таблица clients -->
+    <changeSet id="2" author="init">
+        <createTable tableName="clients">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="client_id" type="VARCHAR(50)"/>
+            <column name="user_id" type="BIGINT"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="middle_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="date_of_birth" type="DATE"/>
+            <column name="document_type" type="VARCHAR(50)"/>
+            <column name="document_id" type="VARCHAR(50)"/>
+            <column name="document_prefix" type="VARCHAR(10)"/>
+            <column name="document_suffix" type="VARCHAR(10)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 3. Таблица products -->
+    <changeSet id="3" author="init">
+        <createTable tableName="products">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)"/>
+            <column name="key" type="VARCHAR(50)"/>
+            <column name="create_date" type="TIMESTAMP"/>
+            <column name="product_id" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 4. Таблица client_products -->
+    <changeSet id="4" author="init">
+        <createTable tableName="client_products">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="client_id" type="BIGINT"/>
+            <column name="product_id" type="BIGINT"/>
+            <column name="open_date" type="DATE"/>
+            <column name="close_date" type="DATE"/>
+            <column name="status" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 5. Тестовые данные: users -->
+    <changeSet id="5" author="init">
+        <insert tableName="users">
+            <column name="login" value="alice"/>
+            <column name="password" value="pass123"/>
+            <column name="email" value="alice@example.com"/>
+        </insert>
+        <insert tableName="users">
+            <column name="login" value="bob"/>
+            <column name="password" value="pass456"/>
+            <column name="email" value="bob@example.com"/>
+        </insert>
+    </changeSet>
+
+    <!-- 6. Тестовые данные: clients -->
+    <changeSet id="6" author="init">
+        <insert tableName="clients">
+            <column name="client_id" value="C001"/>
+            <column name="user_id" valueNumeric="1"/>
+            <column name="first_name" value="Alice"/>
+            <column name="middle_name" value="M"/>
+            <column name="last_name" value="Smith"/>
+            <column name="date_of_birth" valueDate="1990-05-10"/>
+            <column name="document_type" value="PASSPORT"/>
+            <column name="document_id" value="123456789"/>
+            <column name="document_prefix" value="AA"/>
+            <column name="document_suffix" value="01"/>
+        </insert>
+        <insert tableName="clients">
+            <column name="client_id" value="C002"/>
+            <column name="user_id" valueNumeric="2"/>
+            <column name="first_name" value="Bob"/>
+            <column name="middle_name" value="K"/>
+            <column name="last_name" value="Johnson"/>
+            <column name="date_of_birth" valueDate="1985-09-15"/>
+            <column name="document_type" value="ID_CARD"/>
+            <column name="document_id" value="987654321"/>
+            <column name="document_prefix" value="BB"/>
+            <column name="document_suffix" value="02"/>
+        </insert>
+    </changeSet>
+
+    <!-- 7. Тестовые данные: products -->
+    <changeSet id="7" author="init">
+        <insert tableName="products">
+            <column name="name" value="Savings Account"/>
+            <column name="key" value="SAVINGS"/>
+            <column name="create_date" valueDate="2025-01-01T00:00:00"/>
+            <column name="product_id" value="P001"/>
+        </insert>
+        <insert tableName="products">
+            <column name="name" value="Credit Card"/>
+            <column name="key" value="CREDIT"/>
+            <column name="create_date" valueDate="2025-02-01T00:00:00"/>
+            <column name="product_id" value="P002"/>
+        </insert>
+    </changeSet>
+
+    <!-- 8. Тестовые данные: client_products -->
+    <changeSet id="8" author="init">
+        <insert tableName="client_products">
+            <column name="client_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="1"/>
+            <column name="open_date" valueDate="2025-03-01"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="client_products">
+            <column name="client_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="2"/>
+            <column name="open_date" valueDate="2025-04-01"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

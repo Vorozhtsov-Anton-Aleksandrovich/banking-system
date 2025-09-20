@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- 1. Таблица accounts -->
+    <changeSet id="1" author="init">
+        <createTable tableName="accounts">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="client_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="BIGINT"/>
+            <column name="balance" type="DECIMAL(19,2)" defaultValueNumeric="0.00"/>
+            <column name="interest_rate" type="DECIMAL(5,2)"/>
+            <column name="is_recalc" type="BOOLEAN" defaultValueBoolean="false" />
+            <column name="card_exist" type="BOOLEAN" defaultValueBoolean="false" />
+            <column name="status" type="VARCHAR(50)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 2. Таблица cards -->
+    <changeSet id="2" author="init">
+        <createTable tableName="cards">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="card_id" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="payment_system" type="VARCHAR(50)"/>
+            <column name="status" type="VARCHAR(50)"/>
+            <column name="expire_date" type="DATE"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 3. Таблица payments -->
+    <changeSet id="3" author="init">
+        <createTable tableName="payments">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_credit" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payed_at" type="TIMESTAMP"/>
+            <column name="type" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 4. Таблица transactions -->
+    <changeSet id="4" author="init">
+        <createTable tableName="transactions">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="card_id" type="BIGINT"/>
+            <column name="type" type="VARCHAR(50)"/>
+            <column name="amount" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- 5. Пример начальных данных для accounts -->
+    <changeSet id="5" author="init">
+        <insert tableName="accounts">
+            <column name="client_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="101"/>
+            <column name="balance" valueNumeric="1000.00"/>
+            <column name="interest_rate" valueNumeric="1.5"/>
+            <column name="is_recalc" valueBoolean="false"/>
+            <column name="card_exist" valueBoolean="true"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="accounts">
+            <column name="client_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="102"/>
+            <column name="balance" valueNumeric="500.00"/>
+            <column name="interest_rate" valueNumeric="2.0"/>
+            <column name="is_recalc" valueBoolean="false"/>
+            <column name="card_exist" valueBoolean="false"/>
+            <column name="status" value="ACTIVE"/>
+        </insert>
+    </changeSet>
+
+    <!-- 6. Пример начальных данных для cards -->
+    <changeSet id="6" author="init">
+        <insert tableName="cards">
+            <column name="account_id" valueNumeric="1"/>
+            <column name="card_id" value="1111-2222-3333-4444"/>
+            <column name="payment_system" value="VISA"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="expire_date" valueDate="2026-12-31"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
