@@ -6,6 +6,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public record ClientDto(
+    Long id,
     Long clientId,
     Long userId,
     String firstName,

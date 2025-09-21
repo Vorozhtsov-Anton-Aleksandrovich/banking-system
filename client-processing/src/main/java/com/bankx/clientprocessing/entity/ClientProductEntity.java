@@ -1,11 +1,17 @@
 package com.bankx.clientprocessing.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "client_products")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ClientProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

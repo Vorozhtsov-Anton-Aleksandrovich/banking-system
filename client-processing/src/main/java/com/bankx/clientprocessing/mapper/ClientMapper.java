@@ -9,6 +9,7 @@ public class ClientMapper {
 
     public ClientEntity toClientEntity(ClientDto clientDto) {
         return ClientEntity.builder()
+                .id(clientDto.id())
                 .clientId(clientDto.clientId())
                 .userId(clientDto.userId())
                 .firstName(clientDto.firstName())
@@ -24,6 +25,7 @@ public class ClientMapper {
 
     public ClientDto toClientDto(ClientEntity clientEntity) {
         return new ClientDto(
+                clientEntity.getClientId(),
                 clientEntity.getClientId(),
                 clientEntity.getUserId(),
                 clientEntity.getFirstName(),

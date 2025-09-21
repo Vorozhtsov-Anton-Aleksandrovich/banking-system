@@ -23,31 +23,48 @@ public class ProductService {
     public ProductDto createProduct(ProductDto productDto) {
         log.info("Called: createProduct - Service layer");
         ProductEntity productEntity = productMapper.toProductEntity(productDto);
-        productRepository.save(productEntity);
-        return productDto;
+        ProductEntity savedEntity = productRepository.save(productEntity);
+        return productMapper.toProductDto(savedEntity);
     }
-
 
     public List<ProductDto> getAllProducts() {
         log.info("Called: getAllProducts - Service layer");
         List<ProductEntity> productEntities = productRepository.findAll();
-        return productEntities
-                .stream()
+        return productEntities.stream()
                 .map(productMapper::toProductDto)
                 .collect(Collectors.toList());
     }
 
+    public ProductDto getProductById(Long id) {
+        log.info("Called: getProductById - Service layer, id: {}", id);
+        ProductEntity productEntity = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        return productMapper.toProductDto(productEntity);
+    }
+
     public ProductDto updateProduct(Long id, ProductDto productDto) {
-        log.info("Called: updateProduct - Controller layer");
-        ProductEntity productEntityUpdate = productMapper.toProductEntity(productDto);
-        productEntityUpdate.setId(id);
-        productRepository.save(productEntityUpdate);
-        return productDto;
+        log.info("Called: updateProduct - Service layer, id: {}", id);
+
+        if (!productRepository.existsById(id)) {
+            throw new RuntimeException("Product not found with id: " + id);
+        }
+
+        ProductEntity productEntity = productMapper.toProductEntity(productDto);
+        productEntity.setId(id);
+        ProductEntity updatedEntity = productRepository.save(productEntity);
+        return productMapper.toProductDto(updatedEntity);
     }
 
     public void deleteProduct(Long id) {
-        log.info("Called: deleteProduct - Controller layer");
+        log.info("Called: deleteProduct - Service layer, id: {}", id);
         productRepository.deleteById(id);
     }
 
+    public List<ProductDto> getProductsByName(String name) {
+        log.info("Called: getProductsByName - Service layer, name: {}", name);
+        return productRepository.findAll().stream()
+                .filter(product -> product.getName().equalsIgnoreCase(name))
+                .map(productMapper::toProductDto)
+                .collect(Collectors.toList());
+    }
 }

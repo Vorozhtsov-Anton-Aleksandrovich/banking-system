@@ -1,6 +1,5 @@
 package com.bankx.clientprocessing.controller;
 
-import com.bankx.clientprocessing.Dto.ClientDto;
 import com.bankx.clientprocessing.Dto.ProductDto;
 import com.bankx.clientprocessing.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -8,13 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/product")
+@RestController
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
@@ -31,12 +29,18 @@ public class ProductController {
                 .body(productService.createProduct(productDto));
     }
 
-    //TODO добавить пагинацию
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getAllProducts(
-    ) {
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
         logger.info("Called: getAllProducts - Controller layer");
         return ResponseEntity.ok(productService.getAllProducts());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDto> getProductById(
+            @PathVariable Long id
+    ) {
+        logger.info("Called: getProductById - Controller layer, id: {}", id);
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @PutMapping("/{id}")
@@ -44,17 +48,24 @@ public class ProductController {
             @PathVariable Long id,
             @RequestBody ProductDto productDto
     ) {
-        logger.info("Called: updateProduct - Controller layer");
+        logger.info("Called: updateProduct - Controller layer, id: {}", id);
         return ResponseEntity.ok(productService.updateProduct(id, productDto));
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(
-            @PathVariable long id
+            @PathVariable Long id
     ) {
-        logger.info("Called: deleteProduct - Controller layer");
+        logger.info("Called: deleteProduct - Controller layer, id: {}", id);
         productService.deleteProduct(id);
-        return  ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<ProductDto>> getProductsByName(
+            @PathVariable String name
+    ) {
+        logger.info("Called: getProductsByName - Controller layer, name: {}", name);
+        return ResponseEntity.ok(productService.getProductsByName(name));
+    }
 }

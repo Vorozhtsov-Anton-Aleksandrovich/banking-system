@@ -9,6 +9,7 @@ public class ProductMapper {
 
     public ProductEntity toProductEntity(ProductDto productDto) {
         return ProductEntity.builder()
+                .id(productDto.id())
                 .name(productDto.name())
                 .key(productDto.key())
                 .createDate(productDto.createDate())
@@ -18,6 +19,7 @@ public class ProductMapper {
 
     public ProductDto toProductDto(ProductEntity productEntity) {
         return new ProductDto(
+                productEntity.getId(),
                 productEntity.getName(),
                 productEntity.getKey(),
                 productEntity.getCreateDate(),
