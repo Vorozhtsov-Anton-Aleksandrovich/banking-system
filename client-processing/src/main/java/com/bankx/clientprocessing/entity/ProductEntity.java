@@ -1,11 +1,16 @@
 package com.bankx.clientprocessing.entity;
 
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
+import lombok.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +22,8 @@ public class ProductEntity {
     private ProductKey key;
 
     @Column(name = "create_date")
-    private LocalDateTime createDate;
+    private LocalDate createDate;
 
     @Column(name = "product_id")
-    private String productId;
+    private Long productId;
 }

@@ -44,8 +44,8 @@
             </column>
             <column name="name" type="VARCHAR(100)"/>
             <column name="key" type="VARCHAR(50)"/>
-            <column name="create_date" type="TIMESTAMP"/>
-            <column name="product_id" type="VARCHAR(50)"/>
+            <column name="create_date" type="DATE"/>
+            <column name="product_id" type="BIGINT"/>
         </createTable>
     </changeSet>
 
@@ -109,15 +109,15 @@
     <changeSet id="7" author="init">
         <insert tableName="products">
             <column name="name" value="Savings Account"/>
-            <column name="key" value="SAVINGS"/>
-            <column name="create_date" valueDate="2025-01-01T00:00:00"/>
-            <column name="product_id" value="P001"/>
+            <column name="key" value="DC"/>
+            <column name="create_date" valueDate="2025-01-01"/>
+            <column name="product_id" value="001"/>
         </insert>
         <insert tableName="products">
             <column name="name" value="Credit Card"/>
-            <column name="key" value="CREDIT"/>
-            <column name="create_date" valueDate="2025-02-01T00:00:00"/>
-            <column name="product_id" value="P002"/>
+            <column name="key" value="CC"/>
+            <column name="create_date" valueDate="2025-02-01"/>
+            <column name="product_id" value="002"/>
         </insert>
     </changeSet>
 

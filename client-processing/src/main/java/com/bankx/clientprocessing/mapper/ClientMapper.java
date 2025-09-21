@@ -36,4 +36,5 @@ public class ClientMapper {
                 clientEntity.getDocumentSuffix()
         );
     }
+
 }
