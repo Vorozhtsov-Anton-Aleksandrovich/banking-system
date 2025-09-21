@@ -1,18 +1,24 @@
 package com.bankx.clientprocessing.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "clients")
-public class Client {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "client_id")
-    private String clientId;
+    private Long clientId;
 
     @Column(name = "user_id")
     private Long userId;
@@ -34,7 +40,7 @@ public class Client {
     private DocumentType documentType;
 
     @Column(name = "document_id")
-    private String documentId;
+    private Long documentId;
 
     @Column(name = "document_prefix")
     private String documentPrefix;

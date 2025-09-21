@@ -23,14 +23,14 @@
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="client_id" type="VARCHAR(50)"/>
+            <column name="client_id" type="BIGINT"/>
             <column name="user_id" type="BIGINT"/>
             <column name="first_name" type="VARCHAR(50)"/>
             <column name="middle_name" type="VARCHAR(50)"/>
             <column name="last_name" type="VARCHAR(50)"/>
             <column name="date_of_birth" type="DATE"/>
             <column name="document_type" type="VARCHAR(50)"/>
-            <column name="document_id" type="VARCHAR(50)"/>
+            <column name="document_id" type="BIGINT"/>
             <column name="document_prefix" type="VARCHAR(10)"/>
             <column name="document_suffix" type="VARCHAR(10)"/>
         </createTable>
@@ -80,26 +80,26 @@
     <!-- 6. Тестовые данные: clients -->
     <changeSet id="6" author="init">
         <insert tableName="clients">
-            <column name="client_id" value="C001"/>
+            <column name="client_id" valueNumeric="1"/>
             <column name="user_id" valueNumeric="1"/>
             <column name="first_name" value="Alice"/>
             <column name="middle_name" value="M"/>
             <column name="last_name" value="Smith"/>
             <column name="date_of_birth" valueDate="1990-05-10"/>
             <column name="document_type" value="PASSPORT"/>
-            <column name="document_id" value="123456789"/>
+            <column name="document_id" valueNumeric="1"/>
             <column name="document_prefix" value="AA"/>
             <column name="document_suffix" value="01"/>
         </insert>
         <insert tableName="clients">
-            <column name="client_id" value="C002"/>
+            <column name="client_id" valueNumeric="2"/>
             <column name="user_id" valueNumeric="2"/>
             <column name="first_name" value="Bob"/>
             <column name="middle_name" value="K"/>
             <column name="last_name" value="Johnson"/>
             <column name="date_of_birth" valueDate="1985-09-15"/>
             <column name="document_type" value="ID_CARD"/>
-            <column name="document_id" value="987654321"/>
+            <column name="document_id" valueNumeric="987654321"/>
             <column name="document_prefix" value="BB"/>
             <column name="document_suffix" value="02"/>
         </insert>
