@@ -1,4 +1,4 @@
-package com.bankx.accountprocessing.entity;
+package com.bankx.accountprocessing.entity.enums;
 
 public enum TransactionStatus {
     ALLOWED,

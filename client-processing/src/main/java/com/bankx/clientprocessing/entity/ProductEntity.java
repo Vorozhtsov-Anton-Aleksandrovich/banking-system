@@ -1,5 +1,6 @@
 package com.bankx.clientprocessing.entity;
 
+import com.bankx.clientprocessing.entity.enums.ProductKey;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;

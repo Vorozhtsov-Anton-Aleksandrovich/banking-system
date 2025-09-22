@@ -1,6 +1,6 @@
 package com.bankx.clientprocessing.Dto;
 
-import com.bankx.clientprocessing.entity.DocumentType;
+import com.bankx.clientprocessing.entity.enums.DocumentType;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;

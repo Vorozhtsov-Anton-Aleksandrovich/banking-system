@@ -1,10 +1,15 @@
 package com.bankx.accountprocessing.entity;
 
+import com.bankx.accountprocessing.entity.enums.CardStatus;
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "cards")
+@NoArgsConstructor
+@Getter @Setter
 public class Card {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +23,9 @@ public class Card {
     @Column(name = "payment_system")
     private String paymentSystem;
 
-    @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "card_status")
+    private CardStatus cardStatus;
 
     @Column(name = "expire_date")
     private LocalDate expireDate;

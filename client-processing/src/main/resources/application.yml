@@ -17,4 +17,10 @@ spring:
 
   liquibase:
     enabled: true
-    change-log: classpath:db/changelog/db.changelog-master.xml
+    change-log: classpath:db/changelog/account/db.changelog-master.xml
+
+kafka-topics:
+  client-products: client_products
+  client-credit-products: client_credit_products
+  client-transactions: client-transactions
+  client-cards: client-cards

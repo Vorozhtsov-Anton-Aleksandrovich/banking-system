@@ -14,7 +14,7 @@ public class ClientProductMapper {
         entity.setProductId(clientProductDto.productId());
         entity.setOpenDate(clientProductDto.openDate());
         entity.setCloseDate(clientProductDto.closeDate());
-        entity.setStatus(clientProductDto.status());
+        entity.setClientProductStatus(clientProductDto.status());
         return entity;
     }
 
@@ -25,7 +25,7 @@ public class ClientProductMapper {
                 clientProductEntity.getProductId(),
                 clientProductEntity.getOpenDate(),
                 clientProductEntity.getCloseDate(),
-                clientProductEntity.getStatus()
+                clientProductEntity.getClientProductStatus()
         );
     }
 }

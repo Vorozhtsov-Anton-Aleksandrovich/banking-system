@@ -1,7 +1,7 @@
 package com.bankx.clientprocessing.controller;
 
 import com.bankx.clientprocessing.Dto.ClientProductDto;
-import com.bankx.clientprocessing.entity.Status;
+import com.bankx.clientprocessing.entity.enums.ClientProductStatus;
 import com.bankx.clientprocessing.service.ClientProductService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -62,7 +62,6 @@ public class ClientProductController {
         return ResponseEntity.noContent().build();
     }
 
-    // Дополнительные endpoints
     @GetMapping("/client/{clientId}")
     public ResponseEntity<List<ClientProductDto>> getClientProductsByClientId(
             @PathVariable Long clientId
@@ -73,7 +72,7 @@ public class ClientProductController {
 
     @GetMapping("/status/{status}")
     public ResponseEntity<List<ClientProductDto>> getClientProductsByStatus(
-            @PathVariable Status status
+            @PathVariable ClientProductStatus status
     ) {
         logger.info("Called: getClientProductsByStatus - Controller layer, status: {}", status);
         return ResponseEntity.ok(clientProductService.getClientProductsByStatus(status));

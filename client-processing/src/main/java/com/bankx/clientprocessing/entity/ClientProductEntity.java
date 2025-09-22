@@ -1,5 +1,6 @@
 package com.bankx.clientprocessing.entity;
 
+import com.bankx.clientprocessing.entity.enums.ClientProductStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,5 +31,6 @@ public class ClientProductEntity {
     private LocalDate closeDate;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(name = "client_product_status")
+    private ClientProductStatus clientProductStatus;
 }

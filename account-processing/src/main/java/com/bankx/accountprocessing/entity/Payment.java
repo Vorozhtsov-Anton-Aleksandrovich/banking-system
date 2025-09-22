@@ -1,5 +1,6 @@
 package com.bankx.accountprocessing.entity;
 
+import com.bankx.accountprocessing.entity.enums.PaymentType;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class Payment {
     @Column(name = "payed_at")
     private LocalDateTime payedAt;
 
-    @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_type")
+    private PaymentType paymentType;
 }

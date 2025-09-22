@@ -19,7 +19,7 @@
             <column name="interest_rate" type="DECIMAL(5,2)"/>
             <column name="is_recalc" type="BOOLEAN" defaultValueBoolean="false" />
             <column name="card_exist" type="BOOLEAN" defaultValueBoolean="false" />
-            <column name="status" type="VARCHAR(50)"/>
+            <column name="account_status" type="VARCHAR(50)"/>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
@@ -40,7 +40,7 @@
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="payment_system" type="VARCHAR(50)"/>
-            <column name="status" type="VARCHAR(50)"/>
+            <column name="card_status" type="VARCHAR(50)"/>
             <column name="expire_date" type="DATE"/>
         </createTable>
     </changeSet>
@@ -64,7 +64,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="payed_at" type="TIMESTAMP"/>
-            <column name="type" type="VARCHAR(50)"/>
+            <column name="payment_type" type="VARCHAR(50)"/>
         </createTable>
     </changeSet>
 
@@ -82,7 +82,7 @@
             <column name="amount" type="DECIMAL(19,2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="status" type="VARCHAR(50)">
+            <column name="transaction_status" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="timestamp" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
@@ -100,7 +100,7 @@
             <column name="interest_rate" valueNumeric="1.5"/>
             <column name="is_recalc" valueBoolean="false"/>
             <column name="card_exist" valueBoolean="true"/>
-            <column name="status" value="ACTIVE"/>
+            <column name="account_status" value="ACTIVE"/>
         </insert>
         <insert tableName="accounts">
             <column name="client_id" valueNumeric="2"/>
@@ -109,7 +109,7 @@
             <column name="interest_rate" valueNumeric="2.0"/>
             <column name="is_recalc" valueBoolean="false"/>
             <column name="card_exist" valueBoolean="false"/>
-            <column name="status" value="ACTIVE"/>
+            <column name="account_status" value="ACTIVE"/>
         </insert>
     </changeSet>
 
@@ -119,7 +119,7 @@
             <column name="account_id" valueNumeric="1"/>
             <column name="card_id" value="1111-2222-3333-4444"/>
             <column name="payment_system" value="VISA"/>
-            <column name="status" value="ACTIVE"/>
+            <column name="card_status" value="ACTIVE"/>
             <column name="expire_date" valueDate="2026-12-31"/>
         </insert>
     </changeSet>

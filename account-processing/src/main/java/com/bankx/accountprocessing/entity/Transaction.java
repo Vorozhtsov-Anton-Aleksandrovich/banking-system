@@ -1,5 +1,6 @@
 package com.bankx.accountprocessing.entity;
 
+import com.bankx.accountprocessing.entity.enums.TransactionStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,8 +25,8 @@ public class Transaction {
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TransactionStatus status;
+    @Column(name = "transaction_status")
+    private TransactionStatus transactionStatus;
 
     @Column(nullable = false)
     private LocalDateTime timestamp = LocalDateTime.now();

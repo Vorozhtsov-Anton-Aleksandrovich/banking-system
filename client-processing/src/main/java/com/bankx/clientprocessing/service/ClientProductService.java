@@ -2,9 +2,15 @@ package com.bankx.clientprocessing.service;
 
 import com.bankx.clientprocessing.Dto.ClientProductDto;
 import com.bankx.clientprocessing.entity.ClientProductEntity;
-import com.bankx.clientprocessing.entity.Status;
+import com.bankx.clientprocessing.entity.ProductEntity;
+import com.bankx.clientprocessing.entity.enums.ClientProductStatus;
+import com.bankx.clientprocessing.entity.enums.ProductKey;
+import com.bankx.clientprocessing.kafka.Producer;
+import com.bankx.clientprocessing.kafka.event.CreateCardEvent;
+import com.bankx.clientprocessing.mapper.ClientProductEventMapper;
 import com.bankx.clientprocessing.mapper.ClientProductMapper;
 import com.bankx.clientprocessing.repository.ClientProductRepository;
+import com.bankx.clientprocessing.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +25,40 @@ public class ClientProductService {
 
     private final ClientProductRepository clientProductRepository;
     private final ClientProductMapper clientProductMapper;
+    private final ClientProductEventMapper clientProductEventMapper;
+    private final Producer producer;
+    private final ProductRepository productRepository;
     private static final Logger log = LoggerFactory.getLogger(ClientProductService.class);
 
     public ClientProductDto createClientProduct(ClientProductDto clientProductDto) {
         log.info("Called: createClientProduct - Service layer");
         ClientProductEntity entity = clientProductMapper.toClientProductEntity(clientProductDto);
         ClientProductEntity savedEntity = clientProductRepository.save(entity);
+
+        producer.sendCreateClientProductEvent(
+                clientProductEventMapper.toCreateClientProductEvent(savedEntity)
+        );
+
+        if (isClientProductCard(savedEntity)) {
+            ProductEntity productEntity = productRepository.findById(savedEntity.getProductId()).get();
+
+            CreateCardEvent createCardEvent = new CreateCardEvent();
+            createCardEvent.setProductKey(productEntity.getKey());
+            createCardEvent.setClientId(savedEntity.getClientId());
+
+            producer.sendCreateCardEvent(createCardEvent);
+        }
+
         return clientProductMapper.toClientProductDto(savedEntity);
+    }
+
+    private boolean isClientProductCard(ClientProductEntity entity) {
+        ProductEntity productEntity = productRepository.findById(entity.getProductId()).get();
+        ProductKey productKey = productEntity.getKey();
+        return  productKey.equals(ProductKey.AC) ||
+                productKey.equals(ProductKey.CC) ||
+                productKey.equals(ProductKey.DC);
+
     }
 
     public List<ClientProductDto> getAllClientProducts() {
@@ -68,9 +101,9 @@ public class ClientProductService {
                 .collect(Collectors.toList());
     }
 
-    public List<ClientProductDto> getClientProductsByStatus(Status status) {
+    public List<ClientProductDto> getClientProductsByStatus(ClientProductStatus status) {
         log.info("Called: getClientProductsByStatus - Service layer, status: {}", status);
-        return clientProductRepository.findByStatus(status).stream()
+        return clientProductRepository.findByClientProductStatus(status).stream()
                 .map(clientProductMapper::toClientProductDto)
                 .collect(Collectors.toList());
     }
@@ -80,7 +113,7 @@ public class ClientProductService {
         ClientProductEntity entity = clientProductRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Client product not found with id: " + id));
 
-        entity.setStatus(Status.CLOSED);
+        entity.setClientProductStatus(ClientProductStatus.CLOSED);
         entity.setCloseDate(java.time.LocalDate.now());
 
         ClientProductEntity updatedEntity = clientProductRepository.save(entity);

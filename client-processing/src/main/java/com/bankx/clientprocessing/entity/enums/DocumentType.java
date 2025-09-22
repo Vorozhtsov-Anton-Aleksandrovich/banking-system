@@ -1,4 +1,4 @@
-package com.bankx.clientprocessing.entity;
+package com.bankx.clientprocessing.entity.enums;
 
 public enum DocumentType {
     PASSPORT,

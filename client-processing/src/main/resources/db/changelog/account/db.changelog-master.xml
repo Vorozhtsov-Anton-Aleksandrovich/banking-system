@@ -59,7 +59,7 @@
             <column name="product_id" type="BIGINT"/>
             <column name="open_date" type="DATE"/>
             <column name="close_date" type="DATE"/>
-            <column name="status" type="VARCHAR(50)"/>
+            <column name="client_product_status" type="VARCHAR(50)"/>
         </createTable>
     </changeSet>
 
@@ -127,13 +127,13 @@
             <column name="client_id" valueNumeric="1"/>
             <column name="product_id" valueNumeric="1"/>
             <column name="open_date" valueDate="2025-03-01"/>
-            <column name="status" value="ACTIVE"/>
+            <column name="client_product_status" value="ACTIVE"/>
         </insert>
         <insert tableName="client_products">
             <column name="client_id" valueNumeric="2"/>
             <column name="product_id" valueNumeric="2"/>
             <column name="open_date" valueDate="2025-04-01"/>
-            <column name="status" value="ACTIVE"/>
+            <column name="client_product_status" value="ACTIVE"/>
         </insert>
     </changeSet>
 

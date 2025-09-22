@@ -1,6 +1,6 @@
 package com.bankx.clientprocessing.Dto;
 
-import com.bankx.clientprocessing.entity.Status;
+import com.bankx.clientprocessing.entity.enums.ClientProductStatus;
 import java.time.LocalDate;
 
 public record ClientProductDto(
@@ -9,5 +9,5 @@ public record ClientProductDto(
         Long productId,
         LocalDate openDate,
         LocalDate closeDate,
-        Status status
+        ClientProductStatus status
 ) {}
