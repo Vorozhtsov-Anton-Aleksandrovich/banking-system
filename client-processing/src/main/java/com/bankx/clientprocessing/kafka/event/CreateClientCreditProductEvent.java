@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 // пока ивенты идентичны, тк в задании есть вопросы, но в последствии я спрошу и видоизмени, если вдруг что
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class CreateClientCreditProductEvent {
     Long ClientId;
-    Long ProductId;
-    ProductKey productKey;
 }
