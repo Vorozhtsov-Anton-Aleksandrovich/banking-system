@@ -1,11 +1,16 @@
 package com.bankx.clientprocessing.kafka.event;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import com.bankx.clientprocessing.entity.enums.TransactionStatus;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
+@Getter @Setter
 public class CreateTransactionEvent {
-    // пока пустой
+    private Long accountId;
+    private Long cardId;
+    private String type;
+    private Double amount;
+    private TransactionStatus transactionStatus;
 }

@@ -24,3 +24,29 @@ kafka-topics:
   client-credit-products: client_credit_products
   client-transactions: client-transactions
   client-cards: client-cards
+
+t1:
+  kafka:
+    session:
+      timeout:
+        ms: 45000
+    max:
+      partition:
+        fetch:
+          bytes: 300000
+      poll:
+        records: 1
+        interval:
+          ms: 300000
+    consumer:
+      heartbeat:
+        interval: 3000
+
+
+logging:
+  level:
+    org.springframework.kafka: DEBUG
+    org.springframework.kafka.listener: DEBUG
+    org.springframework.kafka.support.serializer.JsonDeserializer: DEBUG
+    org.apache.kafka: DEBUG
+    com.bankx: DEBUG

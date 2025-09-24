@@ -1,6 +1,7 @@
 package com.bankx.accountprocessing.kafka;
 
 import com.bankx.accountprocessing.service.AccountService;
+import com.bankx.accountprocessing.service.TransactionService;
 import com.bankx.clientprocessing.kafka.event.CreateCardEvent;
 import com.bankx.clientprocessing.kafka.event.CreateClientProductEvent;
 import com.bankx.clientprocessing.kafka.event.CreateTransactionEvent;
@@ -17,6 +18,7 @@ import javax.security.auth.login.AccountNotFoundException;
 public class Consumer {
 
     private final AccountService accountService;
+    private final TransactionService transactionService;
 
     @KafkaListener(
             topics = "${kafka-topics.client-products}",
@@ -32,8 +34,11 @@ public class Consumer {
             topics = "${kafka-topics.client-transactions}",
             groupId = "transactions-processing-group"
     )
-    public void consume(CreateTransactionEvent event) {
-        // пока непонятно, что с ней делать
+    public void consume(CreateTransactionEvent event) throws AccountNotFoundException {
+        log.info("Received event: {}", event);
+
+        Long transactionId = transactionService.createTransaction(event).getId();
+        accountService.conductTransaction(event.getAccountId(), transactionId);
     }
 
     @KafkaListener(

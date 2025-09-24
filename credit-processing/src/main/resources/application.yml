@@ -21,3 +21,20 @@ spring:
 
 kafka-topics:
   client-credit-products: client_credit_products
+
+t1:
+  kafka:
+    session:
+      timeout:
+        ms: 45000
+    max:
+      partition:
+        fetch:
+          bytes: 300000
+      poll:
+        records: 1
+        interval:
+          ms: 300000
+    consumer:
+      heartbeat:
+        interval: 3000

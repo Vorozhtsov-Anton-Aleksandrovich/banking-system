@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class Producer {
 
-    private final String LOG_INFO_MESSAGE = "Sending event to topic {}: {}";
+    private final String LOG_INFO_MESSAGE = "Sending event to topic {} with key {}: {}";
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
@@ -25,18 +27,25 @@ public class Producer {
     @Value("${kafka-topics.client-cards}")
     private String TOPIC_CARD;
 
+    private static String getKey() {
+        return UUID.randomUUID().toString();
+    }
+
+    private void sendEvent(String topic, Object event) {
+        String key = getKey();
+        log.info(LOG_INFO_MESSAGE, topic, key, event);
+        kafkaTemplate.send(topic, key, event);
+    }
+
     public void sendCreateClientProductEvent(CreateClientProductEvent event) {
-        log.info(LOG_INFO_MESSAGE, TOPIC_CLIENT_PRODUCTS, event);
-        kafkaTemplate.send(TOPIC_CLIENT_PRODUCTS, String.valueOf(event.getClientId()), event);
+        sendEvent(TOPIC_CLIENT_PRODUCTS, event);
     }
 
     public void sendCreateClientCreditProductEvent(CreateClientCreditProductEvent event) {
-        log.info(LOG_INFO_MESSAGE, TOPIC_CLIENT_CREDIT_PRODUCTS, event);
-        kafkaTemplate.send(TOPIC_CLIENT_CREDIT_PRODUCTS, String.valueOf(event.getClientId()), event);
+        sendEvent(TOPIC_CLIENT_CREDIT_PRODUCTS, event);
     }
 
     public void sendCreateCardEvent(CreateCardEvent event) {
-        log.info(LOG_INFO_MESSAGE, TOPIC_CARD, event);
-        kafkaTemplate.send(TOPIC_CARD, String.valueOf(event.getClientId()), event);
+        sendEvent(TOPIC_CARD, event);
     }
 }

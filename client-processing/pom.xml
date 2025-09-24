@@ -13,6 +13,4 @@
 
 	<artifactId>client-processing</artifactId>
 	<packaging>jar</packaging>
-
-	<!-- Дополнительные зависимости только для этого модуля можно добавлять тут -->
 </project>

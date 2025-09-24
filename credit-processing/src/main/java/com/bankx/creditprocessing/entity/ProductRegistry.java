@@ -24,4 +24,7 @@ public class ProductRegistry {
 
     @Column(name = "open_date")
     private LocalDate openDate;
+
+    @Column(name = "month_count")
+    private Integer monthCount;
 }

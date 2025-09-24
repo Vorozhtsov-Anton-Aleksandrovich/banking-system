@@ -20,6 +20,7 @@
             </column>
             <column name="interest_rate" type="DECIMAL(5,2)"/>
             <column name="open_date" type="DATE"/>
+            <column name="month_count" type="BIGINT"/>
         </createTable>
     </changeSet>
 
@@ -51,6 +52,7 @@
             <column name="product_id" valueNumeric="101"/>
             <column name="interest_rate" valueNumeric="1.5"/>
             <column name="open_date" valueDate="2025-03-01"/>
+            <column name="month_count" valueNumeric="3"/>
         </insert>
         <insert tableName="product_registry">
             <column name="client_id" valueNumeric="2"/>
@@ -58,6 +60,7 @@
             <column name="product_id" valueNumeric="102"/>
             <column name="interest_rate" valueNumeric="2.0"/>
             <column name="open_date" valueDate="2025-04-01"/>
+            <column name="month_count" valueNumeric="2"/>
         </insert>
     </changeSet>
 
